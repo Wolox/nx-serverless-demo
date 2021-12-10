@@ -1,0 +1,17 @@
+# serverless.yml
+service: <%= name %>-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  hello:
+    handler: apps/<%= name %>/src/main.hello
+    events:
+      - http:
+          path: hello
+          method: get
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript

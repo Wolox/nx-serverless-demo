@@ -1,0 +1,106 @@
+{
+  "version": 2,
+  "projects": {
+    "serverless-wolox-wolox": {
+      "implicitDependencies": ["utils"],
+      "root": "apps/serverless-wolox-wolox/serverless-wolox-wolox",
+      "sourceRoot": "apps/serverless-wolox-wolox/src",
+      "projectType": "application",
+      "targets": {
+        "show": {
+          "executor": "./tools/executors/show:show",
+          "options": {
+            "text": "showing the in executor"
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "serverless offline -c ./apps/serverless-wolox-wolox/serverless.yml -f hello"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["../output-lint.out"],
+          "options": {
+            "lintFilePatterns": ["apps/serverless-wolox-wolox/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/serverless-wolox-wolox/serverless-wolox-wolox"
+          ],
+          "options": {
+            "jestConfig": "apps/serverless-wolox-wolox/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "utils": {
+      "root": "libs/utils",
+      "sourceRoot": "libs/utils/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/utils/**/*.js"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/utils"],
+          "options": {
+            "jestConfig": "libs/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "wolox-express-demo-nx": {
+      "root": "apps/wolox-express-demo-nx",
+      "sourceRoot": "apps/wolox-express-demo-nx/src",
+      "projectType": "application",
+      "generators": {},
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "options": {
+            "main": "apps/wolox-express-demo-nx/src/main.ts",
+            "tsConfig": "apps/wolox-express-demo-nx/tsconfig.app.json",
+            "outputPath": "dist/apps/wolox-express-demo-nx"
+          },
+          "configurations": {
+            "production": {
+              "sourceMap": false
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "wolox-express-demo-nx:build"
+          },
+          "configurations": {
+            "production": {
+              "sourceMap": false
+            }
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/wolox-express-demo-nx/jest.config.js",
+            "passWithNoTests": true,
+            "setupFile": "apps/wolox-express-demo-nx/src/test-setup.ts"
+          }
+        }
+      }
+    }
+  }
+}

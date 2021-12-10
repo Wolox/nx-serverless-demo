@@ -1,0 +1,31 @@
+{
+  "npmScope": "demo",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test"]
+      }
+    }
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "nx.json": "*"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/node"
+  },
+  "generators": {
+    "@nrwl/node:library": {
+      "js": true
+    }
+  }
+}

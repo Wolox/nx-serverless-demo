@@ -1,0 +1,17 @@
+# serverless.yml
+service: wolox-serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  hello:
+    handler: apps/serverless-wolox-wolox/src/main.hello
+    events:
+      - http:
+          path: hello
+          method: get
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
